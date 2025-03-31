@@ -1,0 +1,8 @@
+node_modules
+dist/build
+test
+.github
+.env
+.gitignore
+package-lock.json
+yarn.lock
