@@ -5,7 +5,12 @@ class RSAKeyService {
   private privateKey: CryptoKey | null = null;
   private publicKey: string | null = null;
   private initialized: boolean = false;
-  private algorithm: RsaHashedKeyGenParams;
+  private algorithm: RsaHashedKeyGenParams = {
+    name: "RSA-OAEP",
+    modulusLength: 2048,
+    publicExponent: new Uint8Array([1, 0, 1]),
+    hash: "SHA-256",
+  };
 
   private constructor(algorithm: RsaHashedKeyGenParams) {
     this.algorithm = algorithm;
@@ -52,19 +57,32 @@ class RSAKeyService {
 
   public async encryptWithServerPublicKey(
     data: string,
-    jwkPublicKey: JsonWebKey,
-    alg: string = "RSA-OAEP-256",
-    enc: string = "A256GCM",
+    jwkPublicKey: JsonWebKey | string, // Accepts both JWK and PEM/Base64
+    alg:
+      | "RSA-OAEP"
+      | "RSA-OAEP-256"
+      | "RSA-OAEP-384"
+      | "RSA-OAEP-512" = "RSA-OAEP-256",
+    enc: "A128GCM" | "A192GCM" | "A256GCM" = "A256GCM",
   ): Promise<string> {
     try {
       const encodedData = new TextEncoder().encode(data);
-      const publicKey = await jose.importJWK(jwkPublicKey, alg);
+
+      let publicKey: any;
+
+      if (typeof jwkPublicKey === "string") {
+        // Assume PEM or Base64 format
+        const pemPublicKey = `-----BEGIN PUBLIC KEY-----\n${jwkPublicKey}\n-----END PUBLIC KEY-----`;
+        publicKey = await jose.importSPKI(pemPublicKey, alg);
+      } else {
+        publicKey = await jose.importJWK(jwkPublicKey, alg);
+      }
 
       return await new jose.CompactEncrypt(encodedData)
         .setProtectedHeader({ alg, enc })
         .encrypt(publicKey);
     } catch (error) {
-      throw error;
+      throw new Error(`Encryption failed: ${error}`);
     }
   }
 
@@ -77,7 +95,10 @@ class RSAKeyService {
         pkcs8,
       ).toString("base64")}\n-----END PRIVATE KEY-----`;
 
-      const josePrivateKey = await jose.importPKCS8(pkcs8Pem, "RSA-OAEP");
+      const josePrivateKey = await jose.importPKCS8(
+        pkcs8Pem,
+        this.algorithm.name,
+      );
 
       const { plaintext } = await jose.compactDecrypt(
         encryptedData,
