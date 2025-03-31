@@ -75,7 +75,7 @@ class RSAKeyService {
         const pemPublicKey = `-----BEGIN PUBLIC KEY-----\n${jwkPublicKey}\n-----END PUBLIC KEY-----`;
         publicKey = await jose.importSPKI(pemPublicKey, alg);
       } else {
-        publicKey = await jose.importJWK(jwkPublicKey, alg);
+        publicKey = await jose.importJWK({ ...jwkPublicKey } as jose.JWK, alg);
       }
 
       return await new jose.CompactEncrypt(encodedData)
