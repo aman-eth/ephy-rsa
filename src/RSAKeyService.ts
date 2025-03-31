@@ -91,9 +91,10 @@ class RSAKeyService {
       if (!this.privateKey) throw new Error("Private key is not available!");
 
       const pkcs8 = await crypto.subtle.exportKey("pkcs8", this.privateKey);
-      const pkcs8Pem = `-----BEGIN PRIVATE KEY-----\n${Buffer.from(
-        pkcs8,
-      ).toString("base64")}\n-----END PRIVATE KEY-----`;
+
+      // Replace Buffer usage with browser-compatible base64 conversion
+      const base64Key = btoa(String.fromCharCode(...new Uint8Array(pkcs8)));
+      const pkcs8Pem = `-----BEGIN PRIVATE KEY-----\n${base64Key}\n-----END PRIVATE KEY-----`;
 
       const josePrivateKey = await jose.importPKCS8(
         pkcs8Pem,
