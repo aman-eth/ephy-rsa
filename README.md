@@ -1,6 +1,24 @@
 # Ephy-RSA
 
-Ephy-RSA is a lightweight and secure encryption library for generating **ephemeral RSA key pairs** in browser memory. It allows encrypted communication between frontend and backend without storing any keys. No plaintext data is exposed in the browser's network tab, ensuring enhanced security.
+Ephy-RSA is a lightweight and secure encryption library for generating **ephemeral RSA key pairs** in browser memory. It allows encrypted communication between frontend and backend without storing any keys. No plaintext data is exposed in the browser's network tab, ensuring enhanced security. This library can be used in **Next.js** and **React.js** applications seamlessly.
+
+## tl;dr
+
+Below is a **Mermaid diagram** illustrating the encryption and decryption process:
+
+```mermaid
+sequenceDiagram
+  participant Client as Client
+  participant Server as Server
+  Client ->> Client: Generate Ephemeral RSA Key Pair using ephy-RSA
+  Client ->> Client: Extract Public Key
+  Client ->> Server: Send payload (login credentials + client's public key) encrypted with server's public key (RSA-OAEP-256)
+  Server ->> Server: Decrypt with Server Private Key
+  Server ->> Server: Process login info
+  Server ->> Server: Save client's public key along with the session info
+  Server ->> Client: All responses for the current session encrypted with client's public key
+  Client ->> Client: Decrypt responses with Ephemeral Private Key
+```
 
 ## Features
 
@@ -70,7 +88,7 @@ Returns an instance of `RSAKeyService`. Optionally, you can specify an RSA key g
 
 ### `getPublicKey(): string | null`
 
-Returns the **Base64-encoded public key** of the generated RSA key pair.
+Returns the **Base64-encoded PEM public key** of the generated RSA key pair.
 
 ### `encryptWithServerPublicKey(data: string, jwkPublicKey: JsonWebKey | string, alg?: "RSA-OAEP" | "RSA-OAEP-256", enc?: "A128GCM" | "A256GCM"): Promise<string>`
 
@@ -80,8 +98,26 @@ Encrypts data using a **server-provided public key**. Accepts JWK or PEM/Base64 
 
 Decrypts the given encrypted data using the ephemeral private key stored in memory.
 
+## TypeScript Interface
+
+To provide better clarity, here's a possible `RSAKeyService` TypeScript interface:
+
+```typescript
+interface RSAKeyService {
+  getPublicKey(): string | null;
+  encryptWithServerPublicKey(
+    data: string,
+    jwkPublicKey: JsonWebKey | string,
+    alg?: "RSA-OAEP" | "RSA-OAEP-256",
+    enc?: "A128GCM" | "A256GCM",
+  ): Promise<string>;
+  decryptWithPrivateKey(encryptedData: string): Promise<string>;
+}
+```
+
 ## Security Considerations
 
-- **Private keys are never stored persistently** – they exist only in memory.
+- **Private keys are never stored persistently** – they exist only in memory and are lost when the page is refreshed.
 - **Ensure your frontend is protected against XSS attacks**, as in-memory keys can be accessed if malicious scripts are injected.
 - **Use HTTPS** to prevent man-in-the-middle attacks.
+- **Implement a strong Content Security Policy (CSP)** to restrict script execution and mitigate injection risks.

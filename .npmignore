@@ -6,3 +6,4 @@ test
 .gitignore
 package-lock.json
 yarn.lock
+src/RSAKeyService.ts
