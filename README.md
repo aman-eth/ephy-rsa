@@ -6,7 +6,7 @@ Ephy-RSA is a lightweight and secure encryption library for generating **ephemer
 
 Below is a **Sequence Diagram** illustrating the encryption and decryption process:
 
-![Sequence Diagram](https://www.mermaidchart.com/raw/ced23901-f223-43ae-8f30-bddfe1ba0b5d?theme=light&version=v0.1&format=svg)
+![Sequence Diagram](https://github.com/aman-eth/ephy-rsa/raw/main/images/sequence_diag.svg)
 
 ## Features
 
