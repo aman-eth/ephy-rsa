@@ -1,6 +1,6 @@
 {
   "name": "ephy-rsa",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A hybrid RSA + AES encryption service using jose for large data encryption on the browser.",
   "main": "dist/RSAKeyService.js",
   "types": "dist/RSAKeyService.d.ts",
@@ -8,7 +8,7 @@
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["RSA", "AES", "encryption", "hybrid", "jose", "cryptography", "browser", "secure"],
+  "keywords": ["reactjs", "nextjs", "RSA", "AES", "encryption", "decryption", "hybrid", "jose", "cryptography", "browser", "secure", "ephemeral"],
   "author": "Aman Sharma",
   "license": "MIT",
   "dependencies": {

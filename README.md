@@ -4,21 +4,9 @@ Ephy-RSA is a lightweight and secure encryption library for generating **ephemer
 
 ## tl;dr
 
-Below is a **Mermaid diagram** illustrating the encryption and decryption process:
+Below is a **Sequence Diagram** illustrating the encryption and decryption process:
 
-```mermaid
-sequenceDiagram
-  participant Client as Client
-  participant Server as Server
-  Client ->> Client: Generate Ephemeral RSA Key Pair using ephy-RSA
-  Client ->> Client: Extract Public Key
-  Client ->> Server: Send payload (login credentials + client's public key) encrypted with server's public key (RSA-OAEP-256)
-  Server ->> Server: Decrypt with Server Private Key
-  Server ->> Server: Process login info
-  Server ->> Server: Save client's public key along with the session info
-  Server ->> Client: All responses for the current session encrypted with client's public key
-  Client ->> Client: Decrypt responses with Ephemeral Private Key
-```
+![Sequence Diagram](https://www.mermaidchart.com/raw/ced23901-f223-43ae-8f30-bddfe1ba0b5d?theme=light&version=v0.1&format=svg)
 
 ## Features
 
