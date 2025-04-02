@@ -31,36 +31,6 @@ yarn add ephy-rsa
 
 ---
 
-## 🔄 How It Works
-
-```mermaid
-sequenceDiagram
-    participant 🖥 Client
-    participant 🔐 Backend
-
-    note over 🖥 Client: 1️⃣ Generate Ephemeral RSA Key Pair 🗝️
-    🖥 Client->>🖥 Client: Generate RSA Key Pair
-    🖥 Client->>🖥 Client: Store Private Key in Memory 🧠
-
-    note over 🔐 Backend: 2️⃣ Server Key Management 🏢
-    🔐 Backend->>🔐 Backend: Generate & Store RSA Key Pair 🔑
-
-    note over 🖥 Client: 3️⃣ Encrypt Data Before Sending ✉️🔒
-    🖥 Client->>🔐 Backend: Request Public Key 📡
-    🔐 Backend-->>🖥 Client: Send Server Public Key 📜
-    🖥 Client->>🖥 Client: Encrypt Data using Server Public Key 🛡️
-    🖥 Client->>🔐 Backend: Send Encrypted Data 📦 along with client's public key
-
-    note over 🔐 Backend: 4️⃣ Decrypt Data Securely 🔓
-    🔐 Backend->>🔐 Backend: Decrypt Data using Private Key 🔑
-    🔐 Backend->>🔐 Backend: Encrypt Response Data using Client's Public Key 🔑
-    🔐 Backend-->>🖥 Client: Return Encrypted Response 📬
-
-    note over 🖥 Client: 4️⃣ Decrypt Response Data With its Ephemeral Private key 🔓
-```
-
----
-
 ## 🛠 Usage
 
 ### 🖥 Frontend (Client-Side)
