@@ -6,7 +6,7 @@ Ephy-RSA is a lightweight encryption library for securely exchanging data betwee
 
 Below is a **Sequence Diagram** illustrating the encryption and decryption process:
 
-![Sequence Diagram](https://github.com/aman-eth/ephy-rsa/raw/main/images/sequence_diag.svg)
+![Sequence Diagram](https://github.com/aman-eth/ephy-rsa/raw/main/images/mermaid.svg)
 
 ## 🚀 Features
 
