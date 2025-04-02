@@ -1,6 +1,6 @@
 {
   "name": "ephy-rsa",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A hybrid RSA + AES encryption service using jose for large data encryption on the browser.",
   "main": "dist/RSAKeyService.js",
   "types": "dist/RSAKeyService.d.ts",
