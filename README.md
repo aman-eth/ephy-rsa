@@ -173,6 +173,14 @@ interface RSAKeyService {
 
 ---
 
+## 📚 Additional Resources
+
+- **Github Repository**: [GitHub - aman-eth/ephy-rsa](https://github.com/aman-eth/ephy-rsa)
+- **Demo Repository**: [GitHub - aman-eth/ephy-rsa-example](https://github.com/aman-eth/ephy-rsa-example)
+- **Blog Article**: [Secure Client-Side Encryption with Ephemeral RSA Key Pairs: A Modern Approach](https://aman-eth.medium.com/secure-client-side-encryption-with-ephemeral-rsa-key-pairs-a-modern-approach-ed8001fce2e2)
+
+---
+
 ## 🏷 Keywords
 
 `reactjs`, `nextjs`, `RSA`, `AES`, `encryption`, `decryption`, `hybrid`, `jose`, `cryptography`, `browser`, `secure`, `ephemeral`

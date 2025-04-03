@@ -1,6 +1,6 @@
 {
   "name": "ephy-rsa",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A hybrid RSA + AES encryption service using jose for large data encryption on the browser.",
   "main": "dist/RSAKeyService.js",
   "types": "dist/RSAKeyService.d.ts",
@@ -17,5 +17,13 @@
   "devDependencies": {
     "typescript": "^5.0.0",
     "@types/node": "^20.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aman-eth/ephy-rsa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aman-eth/ephy-rsa/issues"
+  },
+  "homepage": "https://github.com/aman-eth/ephy-rsa#readme"
 }
